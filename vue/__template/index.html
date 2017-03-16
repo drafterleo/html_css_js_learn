@@ -7,22 +7,10 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="vue.js"></script>
-    <style> 
-        * {
-            margin: 5px;
-        }
-    </style>
 </head>
 <body>
     <div id="app">
-        <p v-if="show">You can see me!</p>
-        <p v-else=>Now you see me!</p>
-        <template v-if="show">
-            <h1>Heading</h1>
-            <p>Inside template</p>
-        </template>
-        <p v-show="show">Do you also see me?</p>
-        <button v-on:click="show = !show">{{show ? 'Hide' : 'Show'}}</button>
+
     </div>
 
     <script>
