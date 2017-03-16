@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="title">
+            <h1 class="centered">{{ title }}</h1> <br/>
+            <input type="text" v-model="title" class="centered">
+        </div> <br/>
+        
+        <div class="title">
+            <h2 class="centered">{{ text }}</h2> <br/>
+            <input class="centered" type="text" v-on:input="changeText">
+        </div> <br/>
+        
+        <div class="tittle">
+            <p class="centered">{{ sayHello() }}</p>
+            <p class="centered"><a v-bind:href="link" target="_blank">Link to Google!</a></p>
+            <p class="centered" v-html="htmlLink"></p>
+        </div> <br/>
+        
+        <div class="centered">
+            <button v-on:click="counter--">Decrease</button>
+            <button v-on:click="counter++">Increase</button> 
+            |
+            <button v-on:click="secondCounter++">Increase Second</button> 
+        </div>
+        
+        <div class="centered">
+            <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+            <p>Result: {{ result() }} | {{ output }} </p>
+        </div>
+
+        <p class="centered" @mousemove="mouseCoordinates"> <!-- "@" is shortcut of "v-on:"" -->
+            Mouse coordinates: {{ mouse.x }} / {{ mouse.y }}
+            - <span @mousemove.stop="">DEAD SPOT</span>
+        </p> <br/>
+
+        <input type="text" class="centered" v-on:keyup.enter="alertMe"> </br>
+
+        <p class="centered framed" v-html="poem"></p>
+    </div>
+
+    <script>
+        new Vue ({
+            el: '#app',
+            data: {
+                title: 'Changeable Title',
+                text: 'Changable by function',
+                link: 'http://google.com',
+                htmlLink: '<a href="http://ya.ru" target="_blank">Yandex</a>',
+                poem: 'оксана жить не успевает </br>' +
+                      'поскольку много важных дел </br>' +
+                      'которые сперва закончи </br>' +
+                      'а уж потом уже живи',
+                counter: 0,
+                secondCounter: 0,
+                mouse: {x: 0, y: 0},
+            },
+            computed: {
+                output: function () {
+                    console.log('computed');
+                    return this.secondCounter > 10 ? ' > 10' : ' <= 10';    
+                }        
+            },
+            methods: {
+                changeText: function (event) {
+                    this.text = event.target.value;
+                },
+                sayHello: function () {
+                    return 'Hello from method!'
+                },
+                increase: function (step, event) {
+                    this.counter += step;
+                },
+                result: function () { // recalculated on DOM-update
+                    console.log('method'); 
+                    return this.counter > 10 ? ' > 10' : ' <= 10';    
+                },
+                mouseCoordinates: function (event) {
+                    this.mouse.x = event.clientX;
+                    this.mouse.y = event.clientY;     
+                },
+                alertMe: function (event) {
+                    alert('Keyup Alert!');
+                },
+            }
+        });
+    </script>
+
+</body>
+
+</html>

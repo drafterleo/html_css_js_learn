@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="demo.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="demo"
+             v-on:click="attachRed = !attachRed"
+             v-bind:class="{red: attachRed}"></div>
+        <div class="demo"
+             v-on:click="attachGreen = !attachGreen"
+             v-bind:class="{green: attachGreen}"></div>
+        <div class="demo"
+             v-on:click="attachBlue = !attachBlue"
+             v-bind:class="{blue: attachBlue}"></div>
+        <hr/>
+        <div class="demo" :class="[color, {red: attachRed}]"></div> <br/>
+        <label for="color_inp">Name of class:</label>
+        <input id='color_inp' type="text" v-model="color">
+        <hr/>
+        <div class="demo" :style="{'background-color': anyColor, 
+                                   'width': anyWidth + 'px'}">
+        </div> 
+        <div class="demo" :style="myStyle"></div>
+        <div class="demo" :style="[myStyle, {height: anyWidth + 'px'}]"></div>
+        <br/>
+        <label for="any_color_inp">Color:</label>
+        <input id='any_color_inp' type="text" v-model="anyColor">
+        <br/>
+        <label for="any_width_inp">Width:</label>
+        <input id='any_width_inp' type="text" v-model="anyWidth">
+    </div>
+
+    <script>
+        new Vue ({
+            el: '#app',
+            data: {
+                attachRed: false,
+                attachGreen: false,
+                attachBlue: false,
+                color: 'green',
+                anyColor: 'gray',
+                anyWidth: '50',
+            },
+            computed: {
+                myStyle: function () {
+                    return {
+                        'background-color': this.anyColor,
+                        'width': this.anyWidth + 'px',
+                    }
+                },
+            },
+        });
+    </script>
+</body>
+</html>
