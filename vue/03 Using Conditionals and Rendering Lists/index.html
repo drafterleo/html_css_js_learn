@@ -10,6 +10,8 @@
     <style> 
         * {
             margin: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -22,7 +24,25 @@
             <p>Inside template</p>
         </template>
         <p v-show="show">Do you also see me?</p>
+
         <button v-on:click="show = !show">{{show ? 'Hide' : 'Show'}}</button>
+        <hr>
+            <ul>
+                <li v-for="person in persons">
+                    <div v-for="(value, key) in person"> {{ key }}: {{ value }} </div>
+                </li>    
+            </ul>
+        <hr>
+        <br>
+        <ul>
+            <li v-for="(ingredient, idx) in ingredients"> {{ ingredient }} ({{ idx }})</li>
+        </ul>
+        <br/>
+        <template v-for="(ingredient, idx) in ingredients">
+            <h1>{{ ingredient }}</h1>
+            <p> {{ idx }} </p>
+        </template>
+
     </div>
 
     <script>
@@ -30,6 +50,11 @@
             el: '#app',
             data: {
                 show: true,
+                ingredients: ['meat', 'fruit', 'cookies'],
+                persons: [
+                    {name: 'Bob', age: 27, color: 'red'},
+                    {name: 'Helen', age: 'unknown', color: 'blue'},
+                ],
             }
         })
     </script>
