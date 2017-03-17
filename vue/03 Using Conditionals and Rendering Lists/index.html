@@ -24,15 +24,17 @@
             <p>Inside template</p>
         </template>
         <p v-show="show">Do you also see me?</p>
-
         <button v-on:click="show = !show">{{show ? 'Hide' : 'Show'}}</button>
-        <hr>
-            <ul>
-                <li v-for="person in persons">
-                    <div v-for="(value, key) in person"> {{ key }}: {{ value }} </div>
-                </li>    
-            </ul>
-        <hr>
+        <hr/>
+
+        <ul>
+            <li v-for="person in persons">
+                <div v-for="(value, key) in person"> {{ key }}: {{ value }} </div>
+            </li>    
+        </ul>
+
+        <hr/>
+        
         <br>
         <ul>
             <li v-for="(ingredient, idx) in ingredients"> {{ ingredient }} ({{ idx }})</li>
@@ -42,6 +44,11 @@
             <h1>{{ ingredient }}</h1>
             <p> {{ idx }} </p>
         </template>
+        
+        <hr/>
+
+        <span v-for="n in 10"> {{ n }} </span>    
+
     </div>
 
     <script>
