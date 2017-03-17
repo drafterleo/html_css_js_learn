@@ -37,11 +37,12 @@
         <ul>
             <li v-for="(ingredient, idx) in ingredients"> {{ ingredient }} ({{ idx }})</li>
         </ul>
-        <br/>
+        <br>
         <template v-for="(ingredient, idx) in ingredients">
             <h1>{{ ingredient }}</h1>
             <p> {{ idx }} </p>
         </template>
+
 
     </div>
 
@@ -55,6 +56,11 @@
                     {name: 'Bob', age: 27, color: 'red'},
                     {name: 'Helen', age: 'unknown', color: 'blue'},
                 ],
+            },
+            methods: {
+                onClick: function () {
+
+                }
             }
         })
     </script>
