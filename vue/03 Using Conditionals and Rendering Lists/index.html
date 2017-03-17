@@ -37,7 +37,7 @@
         
         <br>
         <ul>
-            <li v-for="(ingredient, idx) in ingredients"> {{ ingredient }} ({{ idx }})</li>
+            <li v-for="(ingredient, idx) in ingredients" :key="ingredient"> {{ ingredient }} ({{ idx }})</li>
         </ul>
         <br>
         <template v-for="(ingredient, idx) in ingredients">
