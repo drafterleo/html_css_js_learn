@@ -4,6 +4,7 @@ new Vue ({
         playerHealth: 100,
         monsterHealth: 100,
         gameIsRunning: false,
+        turns: [],
     },
     methods: {
         startGame: function () {
@@ -11,7 +12,7 @@ new Vue ({
             this.playerHealth = 100;
             this.monsterHealth = 100;
         },
-        calcDamage: function (maxDamage, minDamage) {
+        calcDamage: function (minDamage, maxDamage) {
             return Math.max(Math.floor(Math.random() * maxDamage) + 1, minDamage);
         },
         checkWin: function () {
@@ -33,20 +34,36 @@ new Vue ({
             }
             return false;
         },
+        playerAttacks: function (min, max) {
+            var damage = this.calcDamage(min, max);
+            this.monsterHealth -= damage;
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Player hits Monster for ' + damage,
+            });
+        },
+        monsterAttacks: function () {
+            var damage = this.calcDamage(5, 12);
+            this.playerHealth -= damage;
+            this.turns.unshift({
+                isPlayer: false,
+                text: 'Monster hits Player for ' + damage,
+            });
+        },
         attack: function () {
-            this.monsterHealth -= this.calcDamage(10, 2);
-            this.playerHealth -= this.calcDamage(12, 5);
+            this.playerAttacks(2, 10);
+            this.monsterAttacks();
             this.checkWin();
         },
         specialAttack: function () {
-            this.monsterHealth -= this.calcDamage(20, 10);
-            this.playerHealth -= this.calcDamage(12, 5);
+            this.playerAttacks(10, 20);
+            this.monsterAttacks();
             this.checkWin();
         },
         heal: function () {
             this.playerHealth += 10;
             this.playerHealth > 100 ? this.playerHealth = 100 : 0;
-            this.playerHealth -= this.calcDamage(12, 5); // monster attack;
+            this.monsterAttacks();
             this.checkWin();
         },
         giveUp: function () {
