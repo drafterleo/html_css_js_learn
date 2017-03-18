@@ -11,6 +11,7 @@ new Vue ({
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+            this.turns = [];
         },
         calcDamage: function (minDamage, maxDamage) {
             return Math.max(Math.floor(Math.random() * maxDamage) + 1, minDamage);
@@ -63,6 +64,10 @@ new Vue ({
         heal: function () {
             this.playerHealth += 10;
             this.playerHealth > 100 ? this.playerHealth = 100 : 0;
+            this.turns.unshift({
+                isPlayer: true,
+                text: 'Player heals for 10',
+            });
             this.monsterAttacks();
             this.checkWin();
         },
