@@ -8,7 +8,10 @@
     <style>
         * {
             margin: 0;
-            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .wrapper {
@@ -22,32 +25,36 @@
         }
 
         .row .cell {
+            box-sizing: border-box; /* padding and border incleded in the width/height */
             width: 50%;
             height: 100%;
-            border: 1px solid rgb(200, 200, 200);
+            border: 1px solid #ccc;
             float: left;
         }
 
-        .center {
+        .cell-symbol {
             position: relative;
+            display: inline-block;
             left: 50%;
             top: 50%;
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-            color: black;
-            display: inline-block;
+
+            color: #111;
+            font-size: calc((4vw + 4vh + 2vmin) * 2);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="row">
-            <div class="cell"><p class="center">1</p></div>
+            <div class="cell"><p class="cell-symbol">1</p></div>
             <div class="cell"></div>
         </div>
         <div class="row">
             <div class="cell"></div>
-            <div class="cell"><p class="center">4</p></div>
+            <div class="cell"><p class="cell-symbol">4</p></div>
         </div>
     </div>
 </body>
