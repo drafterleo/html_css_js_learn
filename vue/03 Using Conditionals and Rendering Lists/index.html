@@ -63,8 +63,8 @@
         
         <hr/>
 
-        <p v-for="r in gridSize" style="margin: 1px">
-            <span v-for="c in gridSize" 
+        <p v-for="r in gridRange" style="margin: 1px">
+            <span v-for="c in gridRange" 
                 class="bordered"
                 style="margin: 1px; width: 30px; height: 30px; display: inline-block;"
                 @mouseover="hoverIndex = (r-1)*gridSize + (c-1)"
@@ -72,8 +72,10 @@
                 @click="selectIndex = (r-1)*gridSize + (c-1)"
                 :class="{hovered: hoverIndex == (r-1)*gridSize + (c-1) && showHover,
                         selected: selectIndex == (r-1)*gridSize + (c-1)}"> 
-            {{ (r-1)*10 + c }} </span>
-        </p>      
+            {{ (r-1)*gridSize + c }} </span>
+        </p>  
+        <input type="number" min="2" max="10" step="1" value="5" v-model="gridSize" class="grid-input" required>
+
         <p>Mouse over index: {{ hoverIndex }}</p>    
 
     </div>
@@ -88,11 +90,18 @@
                     {name: 'Bob', age: 27, color: 'red'},
                     {name: 'Helen', age: 'unknown', color: 'blue'},
                 ],
-                gridSize: 10,
+                gridSize: 5,
+                gridRange: [1, 2, 3, 4, 5],
                 currIdx: 0,
                 showHover: true,
                 hoverIndex: -1,
                 selectIndex: -1,
+            },
+            watch: {
+                gridSize: function (val) {
+                    this.gridRange = Array.from({length: val}, (v, k) => k+1);
+                    console.log(this.gridRange);
+                }
             },
             methods: {
                 onClick: function () {

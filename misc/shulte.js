@@ -10,7 +10,6 @@ new Vue ({
     },
     watch: {
        gridSize: function (val) {
-           this.gridSize = val;
            this.rowHeight = 100/val + '%';
            this.colWidth = 100/val + '%';
            console.log(val, this.rowHeight, this.colWidth);
