@@ -20,8 +20,8 @@
                  @click="selectedCell = r*gridSize + c"
                  :class="{'normal-cell' : !showHover && !showSelect,
                           'hovered-cell': showHover && (hoveredCell == r*gridSize + c),
-                          'correct-cell': showHitResult && (selectIndex == r*gridSize + c) && selectIndex == correctIndex,
-                          'wrong-cell'  : showHitResult && (selectIndex == r*gridSize + c) && selectIndex != correctIndex,
+                          'correct-cell': showHitResult && (selectedCell == r*gridSize + c) && selectedCell == correctIndex,
+                          'wrong-cell'  : showHitResult && (selectedCell == r*gridSize + c) && selectedCell != correctIndex,
                           'traced-cell' : showTrace && tracedCell(r*gridSize + c)
                           }">
                 {{ cells[r*gridSize + c] }}
