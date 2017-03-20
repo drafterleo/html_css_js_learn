@@ -33,10 +33,13 @@ body {
     justify-content: center; /* align horizontal */
     align-items: center;
 
+    float: left;
+    padding: 0;
+
     width: 50%;
     height: 100%;
+
     border: 1px solid #ccc;
-    float: left;
 
     font-size: calc(8vmin);
     font-weight: bold;
@@ -57,7 +60,13 @@ body {
 
 .hovered-cell {
     color: black;
-    background: rgb(237, 234, 231);
+    /*background: rgb(249, 246, 243);*/
+    border: 1px solid #555;
+}
+
+.traced-cell {
+    color: black;
+    background: #f2efec;
 }
 
 .selected-cell {
@@ -67,7 +76,7 @@ body {
 
 .correct-cell {
     color: black;
-    background: #d4f4ce;
+    background: #bbf4b8;
 }
 
 .wrong-cell {

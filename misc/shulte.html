@@ -18,12 +18,13 @@
                  @mouseover="hoveredCell = r*gridSize + c"
                  @mouseleave="hoveredCell = -1"
                  @click="selectedCell = r*gridSize + c"
-                 :class="{'hovered-cell': showHover && (hoveredCell == r*gridSize + c),
+                 :class="{'normal-cell' : !showHover && !showSelect,
+                          'traced-cell' : showTrace && tracedCell(r*gridSize + c),
+                          'hovered-cell': showHover && (hoveredCell == r*gridSize + c),
                           'correct-cell': showSelect && (selectIndex == r*gridSize + c) && selectIndex == correctIndex,
-                          'wrong-cell'  : showSelect && (selectIndex == r*gridSize + c) && selectIndex != correctIndex,
-                          'normal-cell' : !showHover && !showSelect
-                         }">
-                {{ r*gridSize + c + 1 }}
+                          'wrong-cell'  : showSelect && (selectIndex == r*gridSize + c) && selectIndex != correctIndex
+                          }">
+                {{ cells[r*gridSize + c] }}
             </div>
         </div>
 
