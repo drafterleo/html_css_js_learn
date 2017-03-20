@@ -5,12 +5,14 @@ var appData =  {
     trace: [],
     currNum: 1,
 
+    gameStarted: false,
+
     hoverIndex: -1,
     selectIndex: -1,
     correctIndex: -1,
 
     showHover: true,
-    showSelect: true,
+    showHitResult: true,
     showTrace: true,
 
     rowHeight: '20%',
@@ -23,7 +25,7 @@ new Vue ({
     el: '#app',
     data: appData,
     created: function () {
-        this.initGame();
+        this.startGame();
     },
     watch: {
        gridSize: function (val) {
@@ -35,7 +37,7 @@ new Vue ({
            this.rowHeight = 100/val + '%';
            this.colWidth = 100/val + '%';
 
-           this.initGame();
+           this.startGame();
        }
     },
     computed: {
@@ -44,12 +46,14 @@ new Vue ({
                return this.selectIndex;
            },
            set: function (cellIdx) {
-               this.selectIndex = cellIdx;
-               this.showSelect = true;
-               clearTimeout(this.selectedTimerId);
-               this.selectedTimerId = setTimeout(this.hideSelect, this.selectTimeOut);
-               this.nextTurn();
-               //console.log('selectedCell: ' + this.selectIndex);
+               if (this.gameStarted) {
+                   this.selectIndex = cellIdx;
+                   this.showHitResult = true;
+                   clearTimeout(this.selectedTimerId);
+                   this.selectedTimerId = setTimeout(this.hideSelect, this.selectTimeOut);
+                   this.nextTurn();
+                   //console.log('selectedCell: ' + this.selectIndex);
+               }
            }
        },
        hoveredCell: {
@@ -71,23 +75,33 @@ new Vue ({
            this.shuffleCells(1000);
            console.log('init game');
        },
+       startGame: function () {
+           this.initGame();
+           this.gameStarted = true;
+           console.log('start game');
+       },
+       stopGame: function () {
+           this.clearIndexes();
+           clearTimeout(this.selectedTimerId);
+           this.gameStarted = false;
+       },
        clearIndexes: function () {
            this.hoverIndex = -1;
            this.selectIndex = -1;
            this.correctIndex = -1;
        },
        nextTurn: function () {
-            if (this.selectedCell >= 0 && this.selectedCell < this.cells.length) {
-                if (this.cells[this.selectedCell] === this.currNum) {      // correct answer
-                    this.correctIndex = this.cells.indexOf(this.currNum);
-                    this.currNum ++;
-                    if (this.currNum > this.cells.length) {
-                        this.clearIndexes();
-                        clearTimeout(this.selectedTimerId);
-                        //alert('Game Over!');
-                        console.log('game over!')
-                        setTimeout(this.initGame, 1000);
-                    }
+           if (this.selectedCell >= 0 && this.selectedCell < this.cells.length) {
+               if (this.cells[this.selectedCell] === this.currNum) {      // correct answer
+                   this.correctIndex = this.cells.indexOf(this.currNum);
+                   this.currNum ++;
+                   if (this.currNum > this.cells.length) {
+                       this.stopGame();
+                       alert('Game Over!');
+                       this.startGame();
+                       //console.log('game over!')
+                       //setTimeout(this.initGame, 1000);
+                   }
                 }
             }
        },
@@ -112,8 +126,8 @@ new Vue ({
             }
        },
        hideSelect: function () {
-           this.showSelect = false;
-           //console.log('select time  out');
+           this.showHitResult = false;
+           //console.log('showHitResult timeout');
        }
 
     }
