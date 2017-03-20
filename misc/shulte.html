@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="shulte.css">
     <script src="vue.js"></script>
     <title>Document</title>
-    <style>
-     </style>
 </head>
 <body>
     <div id="app" class="wrapper w3-container w3-padding-0 w3-margin-0">
@@ -17,15 +15,17 @@
 
         <div v-for="r in gridRange" class="row" :style="{height: rowHeight}">
             <div v-for="c in gridRange" class="cell" :style="{width: colWidth}"
-                 @mouseover="hoverIndex = r*gridSize + c"
-                 @mouseleave="hoverIndex = -1"
-                 @click="selectIndex = r*gridSize + c"
-                 :class="{hovered: hoverIndex == r*gridSize + c,
-                          selected: selectIndex == r*gridSize + c}">
-                <div class="cell-symbol">{{ r*gridSize + c + 1 }}</div>
+                 @mouseover="hoveredCell = r*gridSize + c"
+                 @mouseleave="hoveredCell = -1"
+                 @click="selectedCell = r*gridSize + c"
+                 :class="{'hovered-cell': showHover && (hoveredCell == r*gridSize + c),
+                          'correct-cell': showSelect && (selectIndex == r*gridSize + c) && selectIndex == correctIndex,
+                          'wrong-cell'  : showSelect && (selectIndex == r*gridSize + c) && selectIndex != correctIndex,
+                          'normal-cell' : !showHover && !showSelect
+                         }">
+                {{ r*gridSize + c + 1 }}
             </div>
         </div>
-
 
         <button onclick="document.getElementById('id01').style.display='block'"
                 class="settings-btn w3-button w3-green w3-large">

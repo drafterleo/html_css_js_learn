@@ -10,12 +10,6 @@ body {
 .wrapper {
     width: 100vw;
     height: 100vh;
-
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .row {
@@ -25,40 +19,62 @@ body {
 }
 
 .cell {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+
+    justify-content: center; /* align horizontal */
+    align-items: center;
+
     width: 50%;
     height: 100%;
     border: 1px solid #ccc;
     float: left;
-    margin: 0;
+
+    font-size: calc(8vmin);
+    font-weight: bold;
+
+    transition: background 800ms;
 }
 
-/*        .cell:hover {
-            background: paleturquoise;
-        }
-*/
-
 .cell-symbol {
-    position: relative;
-    display: inline-block;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-
     color: inherit;
     font-size: calc(8vmin);
     font-weight: bold;
 }
 
-.hovered {
+.normal-cell {
     color: black;
-    background: lightblue;
+    background: white;
 }
 
-.selected {
+.hovered-cell {
+    color: black;
+    background: rgb(237, 234, 231);
+}
+
+.selected-cell {
     color: white;
     background: navy;
 }
+
+.correct-cell {
+    color: black;
+    background: #d4f4ce;
+}
+
+.wrong-cell {
+    color: black;
+    background: #f4adad;
+}
+
 
 .settings-btn {
     position: fixed;
