@@ -119,7 +119,7 @@ new Vue ({
                        this.stopGame();
                        //alert('Game Over!');
                        this.execDialog('stats');
-                       this.startGame();
+                       //this.startGame();
                        //console.log('game over!')
                        //setTimeout(this.initGame, 1000);
                    }
@@ -166,6 +166,9 @@ new Vue ({
        },
        hideDialog: function () {
            this.dialogShowed = false;
+           if ( ! this.gameStarted) {
+               this.startGame();
+           }
        },
        changeGridSize: function (event) {
            var val = parseInt(event.target.value);
