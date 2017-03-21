@@ -26,7 +26,7 @@
                           'wrong-cell'  : showHitResult && (selectedCell == r*gridSize + c) && selectedCell != correctIndex,
                           'traced-cell' : showTrace && tracedCell(r*gridSize + c)
                           }">
-                <span class="">{{ cells[r*gridSize + c].number }}</span>
+                <span :class="[cells[r*gridSize + c].classes]">{{ cells[r*gridSize + c].number }}</span>
             </div>
         </div>
 
