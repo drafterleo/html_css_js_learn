@@ -12,7 +12,7 @@
 <body>
     <div id="app" class="wrapper w3-container w3-padding-0 w3-margin-0"
          tabindex="-1"
-         @keyup.esc="dialogShowed ? hideDialog() : execDialog()"
+         @keyup.esc="dialogShowed ? hideDialog() : execDialog('settings')"
          v-focus>
 
         <input type="number" min="2" max="9" step="1" value="5" required
@@ -43,21 +43,44 @@
             <img src="img/settings_48.png" class="w3-opacity-max">
         </button>
 
-
         <div class="w3-modal"
              :class="[dialogShowed ? 'display-block' : 'display-none']">
             <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:500px">
-                <div class="w3-panel w3-blue">
-                    <div class="w3-center"><br>
-                        <span @click="hideDialog"
-                              class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-                              title="Close Modal">
-                        &times;
-                        </span>
-                    </div>
+                <header class="w3-container w3-blue">
+                    <span @click="hideDialog"
+                          class="w3-button  w3-display-topright w3-xlarge w3-blue w3-hover-blue w3-hover-text-black"
+                          title="Close Modal">
+                    &times;
+                    </span>
+                    <h3><a href="#" target="_blank">Schulte Tables</a></h3>
+                </header>
+
+                <div class="w3-bar w3-border-bottom">
+                    <button class="tablink w3-bar-item w3-button"
+                            @click="changeDialogTab('settings')"
+                            :class="{'w3-light-gray': settingsTabVisible}">
+                        Settings
+                    </button>
+                    <button class="tablink w3-bar-item w3-button"
+                            @click="changeDialogTab('stats')"
+                            :class="{'w3-light-gray': statsTabVisible}">
+                        Stats
+                    </button>
                 </div>
-                <div class="w3-container">
-                    <button type="button" class="w3-button w3-red">Cancel</button>
+
+                <div class="w3-container" v-show="settingsTabVisible">
+                    <h1>Settings</h1>
+                </div>
+
+                <div class="w3-container" v-show="statsTabVisible">
+                    <h1>Stats</h1>
+                </div>
+
+                <div class="w3-container w3-light-grey w3-padding w3-center">
+                    <button type="button"
+                            class="w3-btn w3-white w3-border"
+                            style="width: 80%;">
+                    Start</button>
                 </div>
             </div>
         </div>

@@ -20,7 +20,9 @@ var appData =  {
     selectTimeOut: 500,
     selectedTimerId: -1,
 
-    dialogShowed: false
+    dialogShowed: false,
+    settingsTabVisible: true,
+    statsTabVisible: false
 };
 
 Vue.directive('focus', {                   // https://jsfiddle.net/LukaszWiktor/cap43pdn/
@@ -40,7 +42,7 @@ new Vue ({
     created: function () {
     },
     mounted: function () {
-        this.execDialog();
+        this.execDialog('settings');
         this.startGame();
     },
     updated: function () {
@@ -148,8 +150,19 @@ new Vue ({
            this.showHitResult = false;
            //console.log('showHitResult timeout');
        },
-       execDialog: function () {
+       execDialog: function (tabName) {
+           this.changeDialogTab(tabName)
            this.dialogShowed = true;
+       },
+       changeDialogTab: function (tabName) {
+           this.statsTabVisible = false;
+           this.settingsTabVisible = false;
+
+           if (tabName == 'stats') {
+               this.statsTabVisible = true;
+           } else {
+               this.settingsTabVisible = true;
+           }
        },
        hideDialog: function () {
            this.dialogShowed = false;
