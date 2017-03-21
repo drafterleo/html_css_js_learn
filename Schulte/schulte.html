@@ -15,10 +15,6 @@
          @keyup.esc="dialogShowed ? hideDialog() : execDialog('settings')"
          v-focus>
 
-        <input type="number" min="2" max="9" step="1" value="5" required
-               @input="changeGridSize"
-               class="grid-input">
-
         <div v-for="r in gridRange" class="row" :style="{height: rowHeight}">
             <div v-for="c in gridRange" class="cell" :style="{width: colWidth}"
                  @mouseover="hoveredCell = r*gridSize + c"
@@ -68,22 +64,51 @@
                     </button>
                 </div>
 
-                <div class="w3-container" v-show="settingsTabVisible">
-                    <h1>Settings</h1>
+                <div class="w3-container w3-margin w3-padding-0" v-if="settingsTabVisible">
+                    <label for="grid_size" class="w3-text-black w3-block"
+                           style="width: 100px;">
+                        <b>Grid Size</b>
+                    </label>
+                    <input id="grid_size" type="number" min="2" max="9" step="1" value="5" required
+                           class="w3-input w3-border w3-xlarge  w3-center w3-padding-0"
+                           style="width: 100px;"
+                           @input="changeGridSize">
+                    <hr style="margin: 10px 0">
+                    <div class="w3-row">
+                        <div class="w3-container w3-col w3-padding-0" style="width: 50%">
+                            <p>
+                            <input class="w3-check" type="checkbox" v-model="showHover">
+                            <label class="w3-validate">Show Hover</label> </p>
+                            <p>
+                            <input class="w3-check" type="checkbox" v-model="showTrace">
+                            <label class="w3-validate">Show Trace</label> </p>
+                            <p>
+                            <input class="w3-check" type="checkbox" v-model="showHitResult">
+                            <label class="w3-validate">Show Hit Result</label> </p>
+                        </div>
+                        <div class="w3-container w3-col w3-padding-0" style="width: 50%">
+                            <p>
+                            <input class="w3-check" type="checkbox" v-model="flipNimbers">
+                            <label class="w3-validate">Flip Numbers</label> </p>
+                            <p>
+                            <input class="w3-check" type="checkbox" v-model="rotateNumbers">
+                            <label class="w3-validate">Rotate Numbers</label> </p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="w3-container" v-show="statsTabVisible">
+                <div class="w3-container w3" v-if="statsTabVisible">
                     <h1>Stats</h1>
                 </div>
 
-                <div class="w3-container w3-light-grey w3-padding w3-center">
+                <footer class="w3-container w3-light-grey w3-center">
                     <button type="button"
-                            class="w3-btn w3-indigo w3-border-indigo w3-text-white w3-xlarge w3-border"
-                            style="width: 80%;"
+                            class="w3-btn w3-indigo w3-border w3-border-indigo w3-text-white w3-xlarge"
+                            style="width: 80%; margin: 10px;"
                             @click="hideDialog(); startGame()">
                         Start
                     </button>
-                </div>
+                </footer>
             </div>
         </div>
     </div>

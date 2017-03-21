@@ -14,6 +14,8 @@ var appData =  {
     showHover: true,
     showHitResult: true,
     showTrace: true,
+    flipNumbers: false,
+    rotateNumbers: false,
 
     rowHeight: '20%',
     colWidth: '20%',
