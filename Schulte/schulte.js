@@ -41,13 +41,13 @@ new Vue ({
     },
     mounted: function () {
         this.execDialog();
-         this.startGame();
+        this.startGame();
     },
     updated: function () {
      },
     watch: {
        gridSize: function (val) {
-           if (isNaN(parseInt(val))) {
+           if (isNaN(parseInt(val)) || parseInt(val) < 2) {
                this.gridSize = 2; // recursion !!!
                return;
            }
@@ -153,6 +153,12 @@ new Vue ({
        },
        hideDialog: function () {
            this.dialogShowed = false;
+       },
+       changeGridSize: function (event) {
+           var val = parseInt(event.target.value);
+           if ( ! isNaN(val) && val >= 2 && val <= 9) {
+               this.gridSize = val;
+           }
        }
 
     }
