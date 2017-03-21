@@ -1,7 +1,18 @@
+function Cell(number){
+    this.number = number;
+    this.classes = {
+        'rotate-90': false,
+        'rotate-180': false,
+        'rotate-270': false,
+        'w3-spin': false
+    };
+}
+
+
 var appData =  {
     gridSize: 5,
     gridRange: [0, 1, 2, 3, 4],
-    cells: [],
+    cells: [], // array of Cell object
     trace: [],
     currNum: 1,
 
@@ -14,8 +25,8 @@ var appData =  {
     showHover: true,
     showHitResult: true,
     showTrace: true,
-    flipNumbers: false,
-    rotateNumbers: false,
+    turnNumbers: false,
+    spinNumbers: false,
 
     rowHeight: '20%',
     colWidth: '20%',
@@ -42,10 +53,10 @@ new Vue ({
     el: '#app',
     data: appData,
     created: function () {
+        this.initGame();
     },
     mounted: function () {
         this.execDialog('settings');
-        this.startGame();
     },
     updated: function () {
      },
@@ -92,7 +103,7 @@ new Vue ({
        initGame: function () {
            this.clearIndexes();
            this.currNum = 1;
-           this.cells = this.makeRange(1, this.gridSize * this.gridSize);
+           this.makeCells(this.gridSize * this.gridSize);
            this.trace = [];
            this.shuffleCells(1000);
            //console.log('init game');
@@ -114,8 +125,8 @@ new Vue ({
        },
        nextTurn: function () {
            if (this.selectedCell >= 0 && this.selectedCell < this.cells.length) {
-               if (this.cells[this.selectedCell] === this.currNum) {      // correct answer
-                   this.correctIndex = this.cells.indexOf(this.currNum);
+               if (this.cells[this.selectedCell].number === this.currNum) {      // correct answer
+                   this.correctIndex = this.indexOfCellByNumber(this.currNum);
                    this.currNum ++;
                    if (this.currNum > this.cells.length) {
                        this.stopGame();
@@ -128,8 +139,18 @@ new Vue ({
                 }
             }
        },
+       indexOfCellByNumber: function (number) {
+           var index = -1;
+           for (var i = 0; i < this.cells.length; i++) {
+               if (this.cells[i].number === number) {
+                   index = i;
+                   break;
+               }
+           }
+           return index;
+       },
        tracedCell: function (cellIdx) {
-           return this.cells[cellIdx] < this.currNum
+           return this.cells[cellIdx].number < this.currNum
        },
        makeRange: function (begin, end) {
            //range = Array.from({length: val}, (v, k) => k);
@@ -138,6 +159,13 @@ new Vue ({
                range.push(i);
            }
            return range;
+       },
+       makeCells: function (n) {
+           var range = [];
+           for (var i = 1; i <= n; i++) {
+               range.push(new Cell(i));
+           }
+           this.cells = range;
        },
        shuffleCells: function (shuffleCount) {
             for (var i = 0; i < shuffleCount; i++) {
