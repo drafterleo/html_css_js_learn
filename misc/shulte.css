@@ -85,11 +85,25 @@ body {
 }
 
 
-.settings-btn {
+#settings-btn {
     position: fixed;
     right: 0;
     top: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline-style: none;
 }
+
+#settings-btn img {
+    opacity: 0.10;
+    transition: opacity 500ms;
+}
+
+#settings-btn img:hover {
+    opacity: 1;
+ }
+
 
 .grid-input {
     position: fixed;

@@ -99,7 +99,8 @@ new Vue ({
                    this.currNum ++;
                    if (this.currNum > this.cells.length) {
                        this.stopGame();
-                       alert('Game Over!');
+                       //alert('Game Over!');
+                       this.execDialog();
                        this.startGame();
                        //console.log('game over!')
                        //setTimeout(this.initGame, 1000);
