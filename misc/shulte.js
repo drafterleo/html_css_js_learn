@@ -112,17 +112,17 @@ new Vue ({
        },
        makeRange: function (begin, end) {
            //range = Array.from({length: val}, (v, k) => k);
-           let range = [];
-           for (let i = begin; i <= end; i++) {
+           var range = [];
+           for (var i = begin; i <= end; i++) {
                range.push(i);
            }
            return range;
        },
        shuffleCells: function (shuffleCount) {
-            for (let i = 0; i < shuffleCount; i++) {
-                let aIdx = Math.floor(Math.random() * this.cells.length);
-                let bIdx = Math.floor(Math.random() * this.cells.length);
-                let aVal = this.cells[aIdx];
+            for (var i = 0; i < shuffleCount; i++) {
+                var aIdx = Math.floor(Math.random() * this.cells.length);
+                var bIdx = Math.floor(Math.random() * this.cells.length);
+                var aVal = this.cells[aIdx];
                 this.cells[aIdx] = this.cells[bIdx];
                 this.cells[bIdx] = aVal;
             }
