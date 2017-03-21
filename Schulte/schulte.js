@@ -1,10 +1,11 @@
 function Cell(number){
     this.number = number;
-    this.classes = {
+    this.cssClasses = {
         'rotate-90': false,
         'rotate-180': false,
         'rotate-270': false,
-        'w3-spin': false
+        'spin-right': false,
+        'spin-left': false
     };
 }
 
@@ -49,7 +50,7 @@ Vue.directive('focus', {                   // https://jsfiddle.net/LukaszWiktor/
     }
 });
 
-new Vue ({
+vueApp = new Vue ({
     el: '#app',
     data: appData,
     created: function () {
@@ -71,6 +72,9 @@ new Vue ({
            this.colWidth = 100/val + '%';
 
            this.startGame();
+       },
+       spinNumbers: function (val) {
+           this.updateCellSpinClasses();
        }
     },
     computed: {
@@ -85,7 +89,6 @@ new Vue ({
                    clearTimeout(this.selectedTimerId);
                    this.selectedTimerId = setTimeout(this.hideSelect, this.selectTimeOut);
                    this.nextTurn();
-                   //console.log('selectedCell: ' + this.selectIndex);
                }
            }
        },
@@ -104,6 +107,7 @@ new Vue ({
            this.clearIndexes();
            this.currNum = 1;
            this.makeCells(this.gridSize * this.gridSize);
+           this.updateCellSpinClasses();
            this.trace = [];
            this.shuffleCells(1000);
            //console.log('init game');
@@ -204,6 +208,20 @@ new Vue ({
            var val = parseInt(event.target.value);
            if ( ! isNaN(val) && val >= 2 && val <= 9) {
                this.gridSize = val;
+           }
+       },
+       updateCellSpinClasses: function () {
+           for (var i = 0; i < this.cells.length; i++) {
+               this.cells[i].cssClasses['spin-left'] = false;
+               this.cells[i].cssClasses['spin-right'] = false;
+               if (this.spinNumbers) {
+                   var rnd = Math.floor(Math.random() * 2);
+                   if (rnd === 0) {
+                       this.cells[i].cssClasses['spin-left'] = true;
+                   } else {
+                       this.cells[i].cssClasses['spin-right'] = true;
+                   }
+               }
            }
        }
 
