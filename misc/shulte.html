@@ -10,7 +10,11 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app" class="wrapper w3-container w3-padding-0 w3-margin-0">
+    <div id="app" class="wrapper w3-container w3-padding-0 w3-margin-0"
+         tabindex="-1"
+         v-on:keyup.esc="dialogShowed ? hideDialog() : execDialog()"
+         v-focus>
+
         <input type="number" min="2" max="9" step="1" value="5" v-model="gridSize" class="grid-input" required>
 
         <div v-for="r in gridRange" class="row" :style="{height: rowHeight}">
@@ -38,7 +42,9 @@
         </button>
 
 
-        <div class="w3-modal" v-bind:class="[showDialog ? 'display-block' : 'display-none']">
+        <div class="w3-modal"
+             ref="modalBox"
+             v-bind:class="[dialogShowed ? 'display-block' : 'display-none']">
             <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:500px">
                 <div class="w3-center"><br>
                     <span v-on:click="hideDialog"

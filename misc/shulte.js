@@ -20,15 +20,31 @@ var appData =  {
     selectTimeOut: 500,
     selectedTimerId: -1,
 
-    showDialog: false
+    dialogShowed: false
 };
+
+Vue.directive('focus', {                   // https://jsfiddle.net/LukaszWiktor/cap43pdn/
+    inserted: function (el) {
+        el.focus();
+    },
+    update: function (el) {
+        Vue.nextTick(function() {
+            el.focus();
+        })
+    }
+});
 
 new Vue ({
     el: '#app',
     data: appData,
     created: function () {
-        this.startGame();
     },
+    mounted: function () {
+        this.execDialog();
+         this.startGame();
+    },
+    updated: function () {
+     },
     watch: {
        gridSize: function (val) {
            if (isNaN(parseInt(val))) {
@@ -133,10 +149,10 @@ new Vue ({
            //console.log('showHitResult timeout');
        },
        execDialog: function () {
-           this.showDialog = true;
+           this.dialogShowed = true;
        },
        hideDialog: function () {
-           this.showDialog = false;
+           this.dialogShowed = false;
        }
 
     }
