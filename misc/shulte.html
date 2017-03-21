@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,17 +28,24 @@
             </div>
         </div>
 
-        <button onclick="document.getElementById('id01').style.display='block'"
-                class="settings-btn w3-button w3-green w3-large">
-        Settings</button>
+        <!--<button class="settings-btn w3-button w3-xlarge w3-black"-->
+                <!--onclick="document.getElementById('id01').style.display='block'">-->
+        <!--Settings</button>-->
 
-        <div id="id01" class="w3-modal">
+        <button class="settings-btn w3-button w3-xlarge w3-black"
+                v-on:click="execDialog">
+        +
+        </button>
+
+
+        <div class="w3-modal" v-bind:class="[showDialog ? 'display-block' : 'display-none']">
             <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:500px">
                 <div class="w3-center"><br>
-                    <span onclick="document.getElementById('id01').style.display='none'"
+                    <span v-on:click="hideDialog"
                           class="w3-button w3-xlarge w3-hover-red w3-display-topright"
                           title="Close Modal">
-                    &times;</span>
+                    &times;
+                    </span>
                 </div>
 
                 <form class="w3-container" action="/action_page.php">

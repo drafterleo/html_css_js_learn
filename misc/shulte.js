@@ -18,7 +18,9 @@ var appData =  {
     rowHeight: '20%',
     colWidth: '20%',
     selectTimeOut: 500,
-    selectedTimerId: -1
+    selectedTimerId: -1,
+
+    showDialog: false
 };
 
 new Vue ({
@@ -128,6 +130,12 @@ new Vue ({
        hideSelect: function () {
            this.showHitResult = false;
            //console.log('showHitResult timeout');
+       },
+       execDialog: function () {
+           this.showDialog = true;
+       },
+       hideDialog: function () {
+           this.showDialog = false;
        }
 
     }
