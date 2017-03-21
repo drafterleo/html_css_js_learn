@@ -30,7 +30,7 @@
                           'wrong-cell'  : showHitResult && (selectedCell == r*gridSize + c) && selectedCell != correctIndex,
                           'traced-cell' : showTrace && tracedCell(r*gridSize + c)
                           }">
-                <span class="w3-spin">{{ cells[r*gridSize + c] }}</span>
+                <span class="">{{ cells[r*gridSize + c] }}</span>
             </div>
         </div>
 
@@ -49,21 +49,21 @@
                 <header class="w3-container w3-blue">
                     <span @click="hideDialog"
                           class="w3-button  w3-display-topright w3-xlarge w3-blue w3-hover-blue w3-hover-text-black"
-                          title="Close Modal">
+                          title="Close">
                     &times;
                     </span>
-                    <h3><a href="#" target="_blank">Schulte Tables</a></h3>
+                    <h3><a href="#" target="_blank">Schulte Table</a></h3>
                 </header>
 
                 <div class="w3-bar w3-border-bottom">
                     <button class="tablink w3-bar-item w3-button"
                             @click="changeDialogTab('settings')"
-                            :class="{'w3-light-gray': settingsTabVisible}">
+                            :class="[settingsTabVisible  ? 'w3-light-gray' : 'w3-white']">
                         Settings
                     </button>
                     <button class="tablink w3-bar-item w3-button"
                             @click="changeDialogTab('stats')"
-                            :class="{'w3-light-gray': statsTabVisible}">
+                            :class="[statsTabVisible ? 'w3-light-gray' : 'w3-white']">
                         Stats
                     </button>
                 </div>
@@ -78,9 +78,11 @@
 
                 <div class="w3-container w3-light-grey w3-padding w3-center">
                     <button type="button"
-                            class="w3-btn w3-white w3-border"
-                            style="width: 80%;">
-                    Start</button>
+                            class="w3-btn w3-indigo w3-border-indigo w3-text-white w3-xlarge w3-border"
+                            style="width: 80%;"
+                            @click="hideDialog(); startGame()">
+                        Start
+                    </button>
                 </div>
             </div>
         </div>

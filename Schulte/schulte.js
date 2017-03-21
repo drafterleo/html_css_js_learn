@@ -93,12 +93,12 @@ new Vue ({
            this.cells = this.makeRange(1, this.gridSize * this.gridSize);
            this.trace = [];
            this.shuffleCells(1000);
-           console.log('init game');
+           //console.log('init game');
        },
        startGame: function () {
            this.initGame();
            this.gameStarted = true;
-           console.log('start game');
+           //console.log('start game');
        },
        stopGame: function () {
            this.clearIndexes();
@@ -118,7 +118,7 @@ new Vue ({
                    if (this.currNum > this.cells.length) {
                        this.stopGame();
                        //alert('Game Over!');
-                       this.execDialog();
+                       this.execDialog('stats');
                        this.startGame();
                        //console.log('game over!')
                        //setTimeout(this.initGame, 1000);
