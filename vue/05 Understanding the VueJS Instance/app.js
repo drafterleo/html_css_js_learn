@@ -1,7 +1,11 @@
+Vue.component('hello', {
+    template: '<h1>Hello component!</h1>'
+});
+
 var data = {
     title: 'The VueJS Instance',
     showParagraph: false
-}
+};
 
 var vm1 = new Vue({
     el: '#app1',
@@ -48,8 +52,9 @@ var vm2 = new Vue({
     }
 });
 
+
 var vm3 = new Vue ({
-    el: 'hello',
+   el: 'hello',
    template: '<h1>Hello app3</h1>'
 });
 
