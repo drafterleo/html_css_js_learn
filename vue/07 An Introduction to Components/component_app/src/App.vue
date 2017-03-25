@@ -1,13 +1,17 @@
 <template>
-    <img src="./assets/logo.png">
-    <h1>Vue component example</h1>
+    <h1>Server status: {{ status }}</h1>
 </template>
 
 <script>
-export default {
-
-}
+    export default {
+        data:  function () {
+            return {
+                status: 'Critical'
+            }
+        }
+    }
 </script>
+
 
 <style>
 
