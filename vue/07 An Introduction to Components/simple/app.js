@@ -11,10 +11,12 @@ Vue.component ('my-cmp', {
             this.status = ' Normal';
         }
     }
-
-
-})
+});
 
 new Vue ({
-    el: '#app'
+    el: '#app1'
+});
+
+new Vue ({
+    el: '#app2'
 });
