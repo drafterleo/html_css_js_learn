@@ -17,6 +17,14 @@
             height: 100vh;
             background: #888;
         }
+
+        .mouse-map {
+            position: relative;
+            width: calc(80%);
+            height: calc(80vh);
+            border: 1px solid black;
+            background: white;
+        }
     </style>
 </head>
 <body>
@@ -24,7 +32,8 @@
          class="screen"
          @mousemove="updateMousePos($event)">
         <p> Mouse pos: {{ mouse.x }}, {{ mouse.y }}</p>
-        <p> Client size: {{ elWidth }} x {{ elHeight }}</p>
+        <p> Client size: {{ elWidth }} x {{ elHeight }} | {{ canvasW }} x {{ canvasH }}</p>
+        <canvas width="400" height="400" class="mouse-map" ref="mouse_map"></canvas>
     </div>
 
     <script>
@@ -33,11 +42,16 @@
             data: {
                 elWidth: 0,
                 elHeight: 0,
-                mouse: {x: 0, y: 0}
+                canvasW: 0,
+                canvasH: 0,
+                mouse: {x: 0, y: 0},
+                canvas: null
             },
             mounted: function () {
-                this.updateWindowResize();
                 window.addEventListener('resize', this.updateWindowResize);
+                this.canvas = this.$refs['mouse_map'];
+                this.updateWindowResize();
+                this.drawSomething();
             },
             beforeDestroy: function () {
                 window.removeEventListener('resize', this.updateWindowResize)
@@ -50,6 +64,26 @@
                 updateWindowResize: function (event) {
                     this.elWidth = this.$el.clientWidth;
                     this.elHeight = this.$el.clientHeight;
+                    if (this.canvas) {
+                        //var rect = this.$refs.mouse_map.getBoundingClientRect();
+                        var rect = this.canvas.getBoundingClientRect();
+                        this.canvasW = rect.width;
+                        this.canvasH = rect.height;
+                        //this.canvas.width = this.canvasW;
+                        //this.canvas.height = this.canvasH;
+                        this.drawSomething();
+                       }
+                },
+                drawSomething: function () {
+                    if (this.canvas && this.canvas.getContext) {
+                        var ctx = this.canvas.getContext('2d');
+
+                        ctx.fillStyle = 'rgb(200, 0, 0)';
+                        ctx.fillRect(10, 10, 50, 50);
+
+                        ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+                        ctx.fillRect(30, 30, 200, 100);
+                    }
                 }
             }
         });
