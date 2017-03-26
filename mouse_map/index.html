@@ -65,14 +65,11 @@
                     this.elWidth = this.$el.clientWidth;
                     this.elHeight = this.$el.clientHeight;
                     if (this.canvas) {
-                        //var rect = this.$refs.mouse_map.getBoundingClientRect();
                         var rect = this.canvas.getBoundingClientRect();
                         this.canvasW = rect.width;
                         this.canvasH = rect.height;
-                        //this.canvas.width = this.canvasW;
-                        //this.canvas.height = this.canvasH;
                         this.drawSomething();
-                       }
+                    }
                 },
                 drawSomething: function () {
                     if (this.canvas && this.canvas.getContext) {
