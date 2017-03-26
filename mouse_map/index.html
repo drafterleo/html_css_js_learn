@@ -31,12 +31,19 @@
     <div id="app"
          class="screen"
          @mousemove="updateMousePos($event)">
-        <p> Mouse pos: {{ mouse.x }}, {{ mouse.y }}</p>
+        <p> Mouse pos: {{ mousePos.x }}, {{ mousePos.y }}</p>
         <p> Client size: {{ elWidth }} x {{ elHeight }} | {{ canvasW }} x {{ canvasH }}</p>
+        <button @click="startMouseTracking">Start Mouse Tracking</button>
+        <button @click="drawMouseTrack">Draw Mouse Track</button>
         <canvas width="400" height="400" class="mouse-map" ref="mouse_map"></canvas>
     </div>
 
     <script>
+        function Point(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
         var vueApp = new Vue ({
             el: '#app',
             data: {
@@ -44,7 +51,9 @@
                 elHeight: 0,
                 canvasW: 0,
                 canvasH: 0,
-                mouse: {x: 0, y: 0},
+                mousePos: {x: 0, y: 0},
+                mouseTracking: false,
+                mouseTrack: [], // array of Point
                 canvas: null
             },
             mounted: function () {
@@ -57,9 +66,18 @@
                 window.removeEventListener('resize', this.updateWindowResize)
             },
             methods: {
+                startMouseTracking: function () {
+                    this.mouseTrack.length = 0;
+                    this.mouseTracking = true;
+                },
                 updateMousePos: function(event) {
-                    this.mouse.x = event.clientX;
-                    this.mouse.y = event.clientY;
+                    this.mousePos.x = event.clientX;
+                    this.mousePos.y = event.clientY;
+                    if (this.mouseTracking) {
+                        var nx = event.clientX/this.elWidth;  // normalize -> [0, 1] interval
+                        var ny = event.clientY/this.elHeight;
+                        this.mouseTrack.push(new Point(nx, ny));
+                    }
                 },
                 updateWindowResize: function (event) {
                     this.elWidth = this.$el.clientWidth;
@@ -68,7 +86,7 @@
                         var rect = this.canvas.getBoundingClientRect();
                         this.canvasW = rect.width;
                         this.canvasH = rect.height;
-                        this.drawSomething();
+                        //this.drawSomething();
                     }
                 },
                 drawSomething: function () {
@@ -80,6 +98,29 @@
 
                         ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
                         ctx.fillRect(30, 30, 200, 100);
+                    }
+                },
+                drawMouseTrack: function () {
+                    if (this.canvas) {
+                        var ctx = this.canvas.getContext('2d');
+                        if (ctx) {
+                            ctx.beginPath()
+                            var W = this.canvas.width;
+                            var H = this.canvas.height;
+                            ctx.fillStyle = 'white';
+                            ctx.clearRect(0, 0, W, H);
+                            ctx.strokeStyle = 'red';
+                            for (var i = 0; i + 1 < this.mouseTrack.length; i ++) {
+                                var x0 = this.mouseTrack[i].x * W;
+                                var y0 = this.mouseTrack[i].y * H;
+                                var x1 = this.mouseTrack[i+1].x * W;
+                                var y1 = this.mouseTrack[i+1].y * H;
+                                ctx.moveTo(x0, y0);
+                                ctx.lineTo(x1, y1);
+                            }
+                            ctx.stroke();
+                            ctx.closePath();
+                        }
                     }
                 }
             }
