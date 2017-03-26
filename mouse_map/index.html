@@ -24,20 +24,32 @@
          class="screen"
          @mousemove="updateMousePos($event)">
         <p> Mouse pos: {{ mouse.x }}, {{ mouse.y }}</p>
+        <p> Client size: {{ elWidth }} x {{ elHeight }}</p>
     </div>
 
     <script>
-        new Vue ({
+        var vueApp = new Vue ({
             el: '#app',
             data: {
-                width: 0,
-                height: 0,
+                elWidth: 0,
+                elHeight: 0,
                 mouse: {x: 0, y: 0}
+            },
+            mounted: function () {
+                this.updateWindowResize();
+                window.addEventListener('resize', this.updateWindowResize);
+            },
+            beforeDestroy: function () {
+                window.removeEventListener('resize', this.updateWindowResize)
             },
             methods: {
                 updateMousePos: function(event) {
                     this.mouse.x = event.clientX;
                     this.mouse.y = event.clientY;
+                },
+                updateWindowResize: function (event) {
+                    this.elWidth = this.$el.clientWidth;
+                    this.elHeight = this.$el.clientHeight;
                 }
             }
         });
