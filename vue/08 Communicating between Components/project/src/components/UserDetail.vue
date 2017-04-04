@@ -8,7 +8,9 @@
 
 <script>
     export default {
-        props: ['userName'],
+        props: {
+            userName: String
+        },
         methods: {
             switchName: function () {
                 // https://learn.javascript.ru/array-methods
