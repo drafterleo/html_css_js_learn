@@ -9,7 +9,11 @@
 <script>
     export default {
         props: {
-            userName: String
+            userName: {
+                type: String,
+                required: false,
+                default: 'NoName'
+            }
         },
         methods: {
             switchName: function () {
