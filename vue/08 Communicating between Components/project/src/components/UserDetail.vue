@@ -10,6 +10,8 @@
 </template>
 
 <script>
+    import { eventBus } from '../main';
+
     export default {
         props: {
             userName: {
@@ -19,6 +21,11 @@
             },
             resetFn: Function,
             userAge: Number
+        },
+        created() {
+            eventBus.$on('ageWasEdited', (age) => {
+                this.userAge = age;
+            });
         },
         methods: {
             switchName: function () {
