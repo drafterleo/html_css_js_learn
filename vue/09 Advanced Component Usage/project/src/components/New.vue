@@ -15,6 +15,12 @@
         },
         destroyed () {
             console.log("New Destroyed!");
+        },
+        deactivated () {
+            console.log("Deactivated!");
+        },
+        activated () {
+            console.log("Activated!");
         }
     }
 </script>
